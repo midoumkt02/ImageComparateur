@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="480" prefWidth="520" spacing="15" style="-fx-background-color: linear-gradient(to bottom, #f8f9fa, #ffffff);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tp2_poo.imagecomparateur.ResultatsController">
+    
+    <padding>
+        <Insets bottom="20" left="20" right="20" top="20" />
+    </padding>
+
+    <!-- HEADER -->
+    <HBox alignment="CENTER" spacing="12" style="-fx-background-color: #778873; -fx-background-radius: 10; -fx-padding: 15;">
+        <Label style="-fx-font-size: 28px;" text="📊" />
+        <VBox>
+            <Label style="-fx-font-weight: bold; -fx-font-size: 18px;" text="Résultats de la Comparaison" textFill="white" />
+            <Label fx:id="labelSousTitre" style="-fx-font-size: 11px; -fx-opacity: 0.9;" text="Analyse complète des images" textFill="white" />
+        </VBox>
+    </HBox>
+
+    <!-- SCORE FINAL - EN HAUT -->
+    <VBox alignment="CENTER" spacing="8" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 12, 0, 0, 2); -fx-padding: 18;">
+        <Label style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #666;" text="SCORE FINAL" />
+        <Label fx:id="labelScoreFinal" style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: #667eea;" text="0.00%" />
+        <Label fx:id="labelInterpretation" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="" />
+        <Label fx:id="labelRotation" alignment="CENTER" style="-fx-font-size: 11px; -fx-text-fill: #666; -fx-font-style: italic;" text="" wrapText="true" />
+    </VBox>
+
+    <!-- DÉTAILS DES SCORES -->
+    <VBox spacing="12" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2); -fx-padding: 15;">
+        <Label style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #333;" text="Détails de l'Analyse" />
+        
+        <Separator />
+        
+        <GridPane hgap="12" vgap="12">
+            <columnConstraints>
+                <ColumnConstraints minWidth="150" />
+                <ColumnConstraints hgrow="ALWAYS" />
+                <ColumnConstraints minWidth="70" />
+            </columnConstraints>
+            
+            <!-- SSIM -->
+            <HBox alignment="CENTER_LEFT" spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <Label style="-fx-font-size: 16px;" text="🔍" />
+                <Label style="-fx-font-weight: bold; -fx-font-size: 11px;" text="SSIM (Structure)" />
+            </HBox>
+            <ProgressBar fx:id="progressSSIM" maxWidth="Infinity" prefHeight="18" progress="0" style="-fx-accent: #3498db;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <Label fx:id="labelSSIM" style="-fx-font-weight: bold; -fx-font-size: 12px;" text="0.00%" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+            
+            <!-- Bords -->
+            <HBox alignment="CENTER_LEFT" spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <Label style="-fx-font-size: 16px;" text="✏️" />
+                <Label style="-fx-font-weight: bold; -fx-font-size: 11px;" text="Bords (Contours)" />
+            </HBox>
+            <ProgressBar fx:id="progressBords" maxWidth="Infinity" prefHeight="18" progress="0" style="-fx-accent: #9b59b6;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="labelBords" style="-fx-font-weight: bold; -fx-font-size: 12px;" text="0.00%" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            
+            <!-- Histogramme -->
+            <HBox alignment="CENTER_LEFT" spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                <Label style="-fx-font-size: 16px;" text="📊" />
+                <Label style="-fx-font-weight: bold; -fx-font-size: 11px;" text="Histogramme" />
+            </HBox>
+            <ProgressBar fx:id="progressHistogramme" maxWidth="Infinity" prefHeight="18" progress="0" style="-fx-accent: #e67e22;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="labelHistogramme" style="-fx-font-weight: bold; -fx-font-size: 12px;" text="0.00%" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+        </GridPane>
+    </VBox>
+
+    <!-- INFO PONDÉRATION -->
+    <HBox alignment="CENTER" spacing="5" style="-fx-background-color: #f0f4ff; -fx-padding: 10; -fx-background-radius: 8;">
+        <Label style="-fx-font-size: 12px;" text="ℹ️" />
+        <Label style="-fx-font-size: 10px; -fx-text-fill: #555;" text="Pondération : 70% SSIM + 10% Bords + 20% Histogramme" />
+    </HBox>
+
+    <!-- BOUTONS -->
+    <HBox alignment="CENTER" spacing="12" style="-fx-padding: 5 0 0 0;">
+        <Button onAction="#copierRapport" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 20; -fx-font-size: 12px;" text="📋 Copier le Rapport" />
+        <Button onAction="#fermerFenetre" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 20; -fx-font-size: 12px;" text="✅ Fermer" />
+    </HBox>
+
+</VBox>
